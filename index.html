@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans|Bitter' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css">
 	<title>Art in the Streets</title>
 </head>
@@ -10,18 +11,23 @@
 	<main class="container">
 		<header>
 			<h1>Art in the Streets</h1>
-			<form action="">
-				<select name="city" id="">
+			<h2>Instagram photos of Canadian street art filtered by city</h2>
+			<form action="" class="city-selection">
+				<select name="city" id="city" class="dropdown">
 					<option value="">Pick a city</option>
 					<option value="toronto">Toronto</option>
 					<option value="montreal">Montreal</option>
 					<option value="vancouver">Vancouver</option>
+					<option value="halifax">Halifax</option>
 				</select>
 			</form>
 		</header>
-		<section class="results">
+		<section class="art-container" id="results">
 			
 		</section>
+		<footer>
+			<p>Built by <a href="http://www.heyjess.ca">Jessica Jones</a> using the <a href="#">Instagram API</a></p>
+		</footer>
 	</main>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
