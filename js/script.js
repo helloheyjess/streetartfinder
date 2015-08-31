@@ -3,7 +3,12 @@ var app = angular.module('art-app',[]);
 
 app.controller('MainCtrl', function($scope, Art){
 	//Create dropdown list of cities
-	$scope.cities = [{name: 'Toronto', value: 'torontostreetart'}, {name: 'Montreal', value: 'montrealstreetart'}, {name: 'Vancouver', value: 'vancouverstreetart'}, {name: 'Halifax', value: 'halifaxstreetart'}];
+	$scope.cities = [
+		{name: 'Toronto', value: 'torontostreetart'},
+		{name: 'Montreal', value: 'montrealstreetart'},
+		{name: 'Vancouver', value: 'vancouverstreetart'},
+		{name: 'Halifax', value: 'halifaxstreetart'}
+	];
 
 	//Get value of selected city to pass into request URL
 	$scope.getCityData = function(city){

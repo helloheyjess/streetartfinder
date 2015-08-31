@@ -20,7 +20,7 @@
 		</header>
 		<section class="art-container" id="results">
 			<div ng-repeat="item in art" class="art-item">
-				<a href="{{item.link}}" target="_blank"><img src="{{item.images.low_resolution.url}}" alt="Instagram Photo"></a>
+				<a href="{{item.link}}" target="_blank"><img ng-src="{{item.images.low_resolution.url}}" alt="Instagram Photo"></a>
 				<p class="filter">Filter: {{item.filter}}</p>
 			</div>
 		</section>
