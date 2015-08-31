@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app='art-app'>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +7,31 @@
 	<link rel="stylesheet" href="css/style.css">
 	<title>Art in the Streets</title>
 </head>
-<body>
+<body ng-controller="MainCtrl">
 	<main class="container">
 		<header>
 			<h1>Art in the Streets</h1>
 			<h2>Instagram photos of Canadian street art filtered by city</h2>
 			<form action="" class="city-selection">
-				<select name="city" id="city" class="dropdown">
+				<select name="city" id="city" class="dropdown" ng-model="city" ng-change="getCityData(city)" ng-options="city as city.name for city in cities">
 					<option value="">Pick a city</option>
-					<option value="toronto">Toronto</option>
-					<option value="montreal">Montreal</option>
-					<option value="vancouver">Vancouver</option>
-					<option value="halifax">Halifax</option>
 				</select>
 			</form>
 		</header>
 		<section class="art-container" id="results">
-			
+			<div ng-repeat="item in art" class="art-item">
+				<a href="{{item.link}}" target="_blank"><img src="{{item.images.low_resolution.url}}" alt="Instagram Photo"></a>
+				<p class="filter">Filter: {{item.filter}}</p>
+			</div>
 		</section>
 		<footer>
 			<p>Built by <a href="http://www.heyjess.ca">Jessica Jones</a> using the <a href="#">Instagram API</a></p>
 		</footer>
 	</main>
 
+
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="js/script.js"></script>
 </body>

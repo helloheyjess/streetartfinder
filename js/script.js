@@ -1,72 +1,43 @@
+//Initialize Angular Module
+var app = angular.module('art-app',[]);
 
-var app = {};
-var callURL = "";
+app.controller('MainCtrl', function($scope, Art){
+	//Create dropdown list of cities
+	$scope.cities = [{name: 'Toronto', value: 'torontostreetart'}, {name: 'Montreal', value: 'montrealstreetart'}, {name: 'Vancouver', value: 'vancouverstreetart'}, {name: 'Halifax', value: 'halifaxstreetart'}];
 
-app.getStreetArt = function(){
-	$.ajax({
-		url: callURL,
-		type: 'GET',
-		dataType: 'jsonp',
-		data: {
-			count: 33,
-			client_id: '07f8e05b591f4014a3730fc6e1949c94'
-		},
-		success: function(results){
-			console.log(results);
-			app.displayStreetArt(results.data);
-		}
-	});
-};
+	//Get value of selected city to pass into request URL
+	$scope.getCityData = function(city){
+		//Store value of selected city into a variable
+		cityURL = city.value;
 
-app.displayStreetArt = function(streetart){
-	$('#results').empty();
-	$.each(streetart, function(index, item){
-		//Create container for each street art item
-		$artItem = $('<div>').addClass('art-item');
-
-		//Create art Link
-		$artLink = $('<a>');
-		$artLink.attr({
-			href: item.link,
-			target: '_blank'
+		//Get results for the selected city
+		Art.getArt(city).then(function(result){
+			$scope.art = result.data;
 		});
-
-		//Create filter text
-		$artFilter = $('<p>').addClass('filter');
-		$artFilter.text('Filter: ' + item.filter);
-
-		//Create art image
-		$artImage = $('<img>').addClass('art-image');
-		$artImage.attr('src', item.images.low_resolution.url);
-
-		//Append image to link
-		$artLink.append($artImage);
-
-		//Append street art item contents to item
-		$artItem.append($artFilter, $artLink);
-
-		//Append each street art item to container
-		$('#results').append($artItem);
-	});
-};
-
-app.init = function(){
-	$('#city').on('change', function(){
-		app.city = $(this).val();
-
-		if (app.city === "montreal") {
-			callURL = "https://api.instagram.com/v1/tags/montrealstreetart/media/recent?";
-		} else if (app.city === "toronto"){
-			callURL = "https://api.instagram.com/v1/tags/torontostreetart/media/recent?";
-		} else if (app.city === "vancouver"){
-			callURL = "https://api.instagram.com/v1/tags/vancouverstreetart/media/recent?";
-		} else if (app.city === "halifax"){
-			callURL = "https://api.instagram.com/v1/tags/halifaxstreetart/media/recent?";
-		}
-		app.getStreetArt();
-	})
-};
-
-$(function(){
-	app.init();
+	};
 });
+
+//Factory for getting street art
+app.factory('Art', function($http, $q){
+	var clientId = '07f8e05b591f4014a3730fc6e1949c94';
+    apiUrlFront = 'https://api.instagram.com/v1/tags/';
+    apiURLBack = '/media/recent?client_id=' + clientId;
+    var config = { params: {count: 33, callback: "JSON_CALLBACK"} };
+    //Return object
+    return {
+    	getArt: function() {
+			//Use a defered object to see if request is ready
+			var def = $q.defer();
+			//Make the request
+			$http.jsonp(apiUrlFront + cityURL + apiURLBack, config)
+				//If it is successful resolve the def
+				.success(def.resolve)
+				//If not reject it
+				.error(def.reject);
+			//Return the promise
+			return def.promise;
+		}
+    }
+});
+
+

@@ -173,12 +173,11 @@ header {
 
 .city-selection {
   margin: 25px; }
-
-select {
-  border: none;
-  box-shadow: 2px 2px 1px #111;
-  color: #2E2441;
-  width: 200px; }
+  .city-selection select {
+    border: none;
+    box-shadow: 2px 2px 1px #111;
+    color: #2E2441;
+    width: 200px; }
 
 .art-container {
   padding: 25px;
@@ -195,19 +194,10 @@ select {
 .art-image {
   margin: 10px auto; }
 
-.avatar {
-  border-radius: 50%;
-  width: 35px;
-  margin-right: 10px; }
-
 .filter {
   text-transform: uppercase;
   margin: 0;
   text-align: right; }
-
-.user-container {
-  display: flex;
-  align-items: center; }
 
 footer {
   position: fixed;
